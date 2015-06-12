@@ -11,6 +11,9 @@
 |
 */
 
-$app->get('/', function() {
-    return view('index');
+$app->get('/admin', function() {
+    return redirect('/admin/questionario.html');
+});
+$app->get('/admin/questionario.html', function() {
+    return view('questionario');
 });

@@ -1,6 +1,36 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax", "ui.materialize.modal"]);
 
+    angular.module("ui.materialize.modal", [])
+        .provider("$modal", function(){
+            var $modalProvider = {
+                $get:["$window", "$document", "$compile", "$rootScope", "$templateRequest",
+                        function(window, document, compile, root, tpl){
+                    var ModalObject = {};
+                    var body = document.find('body').eq(0);
+                    var modal = angular.element("<div></div>");
+                    ModalObject.open = function(template, options){
+                        var scope = root.$new();
+                        scope.parent = (options.parent?options.parent:{});
+                        tpl(template).then(function(result){
+                            scope.close = function(){
+                                window.$("#modal").closeModal();
+                            };
+                            modal.attr({
+                                'id':'modal',
+                                'class':'modal modal-fixed-footer'}).html(result);
+                            body.append(compile(modal)(scope));
+                            window.$("#modal").openModal({
+                                'complete':function(){
+                                    window.$("#modal").remove();
+                                }
+                                });
+                        });
+                    };
+                    return ModalObject;
+                }]};
+            return $modalProvider;
+            });
     angular.module("ui.materialize.ngModel", [])
         .directive("ngModel",["$timeout", function($timeout){
             return {
