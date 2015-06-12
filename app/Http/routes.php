@@ -17,3 +17,4 @@ $app->get('/admin', function() {
 $app->get('/admin/questionario.html', function() {
     return view('questionario');
 });
+$app->get('/admin/questionario.json', 'App\Http\Controllers\Questionario@getJsonShow');

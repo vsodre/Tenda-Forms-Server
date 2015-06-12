@@ -19,10 +19,6 @@ $app = new Laravel\Lumen\Application(
 	realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
-
-// $app->withEloquent();
-
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -90,6 +86,11 @@ $app->register('Jenssegers\Mongodb\MongodbServiceProvider');
 | can respond to, as well as the controllers that may handle them.
 |
 */
+
+//$app->withFacades();
+
+$app->withEloquent();
+
 
 require __DIR__.'/../app/Http/routes.php';
 
