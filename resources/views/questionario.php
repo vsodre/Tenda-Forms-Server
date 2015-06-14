@@ -31,7 +31,15 @@
                             <tr><td>Nome do campo</td><td>Pergunta</td><td>Tipo do campo</td><td>&nbsp;</td></tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="f in q.fields"><td>{{f.nome}}</td><td>{{f.pergunta}}</td><td>{{f.campo_t}}</td><td><a class="waves-effect btn-flat" ng-click="q.edit(f)"><i class="mdi-editor-mode-edit"></i></a></td></tr>
+                            <tr ng-repeat="f in q.fields">
+                                <td>{{f.nome}}</td>
+                                <td>{{f.pergunta}}</td>
+                                <td>{{f.campo_t}}</td>
+                                <td class="right">
+                                    <a class="waves-effect btn-flat" ng-click="q.edit(f)"><i class="mdi-editor-mode-edit"></i></a>
+                                    <a class="waves-effect btn-flat" ng-click="q.confirmRemove($index)"><i class="mdi-content-clear"></i></a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

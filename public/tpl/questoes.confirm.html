@@ -1,0 +1,8 @@
+<div class="modal-content">
+    <h4>Tem certeza que deseja remover a seguinte questão?</h4>
+    <p>{{parent.fields[r_index].pergunta}}</p>
+</div>
+<div class="modal-footer">
+    <a class="waves-effect waves-light btn" ng-click="parent.remove(r_index) && close()">Remover</a>
+    <a href="#!" class="waves-effect btn-flat" ng-click="close()">Fechar</a>
+</div>

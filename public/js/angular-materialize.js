@@ -11,6 +11,9 @@
                     var modal = angular.element("<div></div>");
                     ModalObject.open = function(template, options){
                         var scope = root.$new();
+                        for(var key in options){
+                            scope[key] = options[key];
+                        }
                         scope.parent = (options.parent?options.parent:{});
                         tpl(template).then(function(result){
                             scope.close = function(){

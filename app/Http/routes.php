@@ -14,7 +14,11 @@
 $app->get('/admin', function() {
     return redirect('/admin/questionario.html');
 });
-$app->get('/admin/questionario.html', function() {
-    return view('questionario');
+
+$app->group(['prefix' => 'admin'], function($app){
+
+    $app->get('questionario.html', 'App\Http\Controllers\Questionario@getHtmlShow');
+    $app->get('questionario.json', 'App\Http\Controllers\Questionario@getJsonShow');
+
+    $app->post('questionario.save', 'App\Http\Controllers\Questionario@postJsonSave');
 });
-$app->get('/admin/questionario.json', 'App\Http\Controllers\Questionario@getJsonShow');
