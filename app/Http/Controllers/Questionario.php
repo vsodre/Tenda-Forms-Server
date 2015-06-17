@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Config;
+use App\Resposta;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -23,5 +24,14 @@ class Questionario extends Controller {
         $c->fields = $r->input('fields');
         $c->save();
         return response()->json($c);
+    }
+
+    public function postJsonResposta(Request $r){
+        $resposta = new Resposta();
+        foreach($r->all() as $k => $v){
+            $resposta->{$k} = $v;
+        }
+        $resposta->save();
+        return response()->json(['printr' => $resposta]);
     }
 }

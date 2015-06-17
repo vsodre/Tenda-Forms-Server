@@ -1,0 +1,20 @@
+{
+    "name": "Tenda Client",
+    "description": "",
+    "version": "0.1",
+    "icons": [
+        {
+            "src": "img/Childish-Chart-Bar-16.png",
+            "sizes":"16x16",
+            "type": "image/png",
+            "density": "1.00"
+        },
+        {
+            "src": "img/Childish-Chart-Bar-128.png",
+            "sizes":"128x128",
+            "type": "image/png",
+            "density": "1.00"
+        }],
+    "display": "fullscreen",
+    "manifest_version": 2
+}

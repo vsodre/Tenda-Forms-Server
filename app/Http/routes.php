@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -14,6 +16,9 @@
 $app->get('/admin', function() {
     return redirect('/admin/questionario.html');
 });
+$app->get('/', function() {
+    return view('client');
+});
 
 $app->group(['prefix' => 'admin'], function($app){
 
@@ -22,3 +27,6 @@ $app->group(['prefix' => 'admin'], function($app){
 
     $app->post('questionario.save', 'App\Http\Controllers\Questionario@postJsonSave');
 });
+
+$app->post('/print-photo', 'App\Http\Controllers\Photo@postPrintPhoto');
+$app->post('/resposta', 'App\Http\Controllers\Questionario@postJsonResposta');

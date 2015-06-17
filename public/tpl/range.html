@@ -1,0 +1,5 @@
+<h2>{{campo.pergunta}}</h2>
+<div class="ui-content">
+    <input type="number" ng-value="0" ng-change="setEnable()" ng-model="campo.resposta" min="{{campo.config.min}}" max="{{campo.config.max}}" data-highlight="true" />
+</div>
+<input type="button" ng-click="next()" ng-disabled="disabled" value="Próximo" />

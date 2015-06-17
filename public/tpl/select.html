@@ -1,0 +1,5 @@
+<h2>{{campo.pergunta}}</h2>
+<div class="ui-content">
+    <select ng-model="campo.resposta" ng-change="setEnable()" ng-options="c for c in campo.config.collection.valores"></select>
+</div>
+<input type="button" ng-click="next()" ng-disabled="disabled" value="Próximo" />

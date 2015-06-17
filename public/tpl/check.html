@@ -1,0 +1,12 @@
+<div class="bottom-pad" ng-init="checkbox = {observer:[]}; form[campo.nome] = [];">
+    <h2>{{campo.pergunta}}</h2>
+    <div class="form-body">
+        <form action="#">
+            <p ng-repeat="r in campo.respostas">
+                <input class="filled-in" type="checkbox" ng-model="checkbox.observer[r]" ng-change="checkboxObserver(checkbox.observer, campo)" id="radio{{$index}}" name="{{r}}"/>
+                <label for="radio{{$index}}">{{r}}</label>
+            </p>
+        </form>
+    </div>
+    <a class="waves-effect waves-light btn right z-depth-1" ng-click="form[campo.nome].length && next()" ng-class="{disabled:!form[campo.nome].length}">Próximo</a>
+</div>
