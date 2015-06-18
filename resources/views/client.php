@@ -15,6 +15,7 @@
     </div>
   <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/angular.js"></script>
+  <script src="/js/angular-touch.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/angular-materialize.js"></script>
   <script src="js/camera.js"></script>

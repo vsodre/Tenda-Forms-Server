@@ -1,5 +1,5 @@
 (function(){
-    var app = angular.module('admin', ['ui.materialize']);
+    var app = angular.module('admin', ['ui.materialize', 'ngTouch']);
 
     var questoes = {
         fields:[]

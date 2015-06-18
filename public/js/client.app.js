@@ -1,9 +1,9 @@
 (function(){
-    var app = angular.module('client', []);
+    var app = angular.module('client', ['ngTouch']);
 
     app.controller('PoolStage', ["$scope", "$http", "$timeout", "$window", function($scope, $http, $timeout, $window) {
         var campo = 0;
-        var localhost = "localhost:8000";
+        var localhost = window.location.host;
         var questionario = {};
         var jQuery = $window.jQuery;
 
