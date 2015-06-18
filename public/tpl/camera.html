@@ -1,4 +1,5 @@
-<div class="bottom-pad">
+<div class="top-pad bottom-pad">
+    <a class="waves-effect waves-light btn right z-depth-1" ng-class="{disabled:!released}" ng-click="released && imprimir()">Imprimir</a>
     <h2>Toque na imagem para tirar uma foto</h2>
     <div class="center-align" id="cam-container">
         <video class="responsive-video" autoplay ng-click="snapshot()"></video>
@@ -6,5 +7,4 @@
             <h1 class="center-align white-text" ng-hide="!counting">{{count}}</h1>
         </div>
     </div>
-    <a class="waves-effect waves-light btn right z-depth-1" ng-class="{disabled:!released}" ng-click="released && imprimir()">Imprimir</a>
 </div>

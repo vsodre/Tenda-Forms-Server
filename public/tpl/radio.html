@@ -1,4 +1,5 @@
-<div class="bottom-pad">
+<div class="top-pad bottom-pad">
+    <a class="waves-effect waves-light btn right z-depth-1" ng-click="form[campo.nome] && next()" ng-class="{disabled:!form[campo.nome]}">Próximo</a>
     <h2>{{campo.pergunta}}</h2>
     <div class="form-body row">
         <div class="input-field col s12" ng-repeat="c in campo.respostas">
@@ -6,5 +7,4 @@
             <label for="rad{{$index}}">{{c}}</label>
         </div>
     </div>
-    <a class="waves-effect waves-light btn right z-depth-1" ng-click="form[campo.nome] && next()" ng-class="{disabled:!form[campo.nome]}">Próximo</a>
 </div>
