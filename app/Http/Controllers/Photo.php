@@ -31,7 +31,7 @@ class Photo extends Controller {
     }
 
     private function pasteUserImage(){
-        $r_factor = 1.0;
+        $r_factor = 0.6;
         $offsetx = -2;
         $offsety = 32;
         if($r_factor != 1)
