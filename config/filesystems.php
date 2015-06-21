@@ -11,11 +11,11 @@ return [
     | by the framework. A "local" driver, as well as a variety of cloud
     | based drivers are available for your choosing. Just store away!
     |
-    | Supported: "local", "s3", "rackspace"
+    | Supported: "local", "ftp", "s3", "rackspace"
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => 'local',
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'cloud' => env('FILESYSTEM_CLOUD', 's3'),
+    'cloud' => 's3',
 
     /*
     |--------------------------------------------------------------------------
@@ -48,23 +48,36 @@ return [
             'root'   => storage_path('app'),
         ],
 
+        'ftp' => [
+            'driver'   => 'ftp',
+            'host'     => 'ftp.example.com',
+            'username' => 'your-username',
+            'password' => 'your-password',
+
+            // Optional FTP Settings...
+            // 'port'     => 21,
+            // 'root'     => '',
+            // 'passive'  => true,
+            // 'ssl'      => true,
+            // 'timeout'  => 30,
+        ],
+
         's3' => [
-            'driver'   => 's3',
-            'key'      => env('S3_KEY'),
-            'secret'   => env('S3_SECRET'),
-            'region'   => env('S3_REGION'),
-            'bucket'   => env('S3_BUCKET'),
-            'base_url' => env('S3_URL'),
+            'driver' => 's3',
+            'key'    => 'your-key',
+            'secret' => 'your-secret',
+            'region' => 'your-region',
+            'bucket' => 'your-bucket',
         ],
 
         'rackspace' => [
             'driver'    => 'rackspace',
-            'username'  => env('RACKSPACE_USERNAME'),
-            'key'       => env('RACKSPACE_KEY'),
-            'container' => env('RACKSPACE_CONTAINER'),
+            'username'  => 'your-username',
+            'key'       => 'your-key',
+            'container' => 'your-container',
             'endpoint'  => 'https://identity.api.rackspacecloud.com/v2.0/',
-            'region'    => env('RACKSPACE_REGION'),
-            'url_type'  => 'publicURL'
+            'region'    => 'IAD',
+            'url_type'  => 'publicURL',
         ],
 
     ],

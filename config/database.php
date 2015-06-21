@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mongodb'),
+    'default' => 'mongodb',
 
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +45,6 @@ return [
     */
 
     'connections' => [
-
         'mongodb' => [
             'driver'   => 'mongodb',
             'host'     => 'localhost',
@@ -53,91 +52,83 @@ return [
             'username' => '',
             'password' => '',
             'database' => 'TendaData',
-            /*'options' => [
-                'db' => 'admin' // sets the authentication database required by mongo 3
-                ]*/
-            ],
-
-            'testing' => [
-                'driver' => 'sqlite',
-                'database' => ':memory:',
-            ],
-
-            'sqlite' => [
-                'driver'   => 'sqlite',
-                'database' => env('DB_DATABASE', storage_path('database.sqlite')),
-                'prefix'   => env('DB_PREFIX', ''),
-            ],
-
-            'mysql' => [
-                'driver'    => 'mysql',
-                'host'      => env('DB_HOST', 'localhost'),
-                'database'  => env('DB_DATABASE', 'forge'),
-                'username'  => env('DB_USERNAME', 'forge'),
-                'password'  => env('DB_PASSWORD', ''),
-                'charset'   => 'utf8',
-                'collation' => 'utf8_unicode_ci',
-                'prefix'    => env('DB_PREFIX', ''),
-                'timezone'  => env('DB_TIMEZONE','+00:00'),
-                'strict'    => false,
-            ],
-
-            'pgsql' => [
-                'driver'   => 'pgsql',
-                'host'     => env('DB_HOST', 'localhost'),
-                'database' => env('DB_DATABASE', 'forge'),
-                'username' => env('DB_USERNAME', 'forge'),
-                'password' => env('DB_PASSWORD', ''),
-                'charset'  => 'utf8',
-                'prefix'   => env('DB_PREFIX', ''),
-                'schema'   => 'public',
-            ],
-
-            'sqlsrv' => [
-                'driver'   => 'sqlsrv',
-                'host'     => env('DB_HOST', 'localhost'),
-                'database' => env('DB_DATABASE', 'forge'),
-                'username' => env('DB_USERNAME', 'forge'),
-                'password' => env('DB_PASSWORD', ''),
-                'prefix'   => env('DB_PREFIX', ''),
-            ],
-
+            'options' => [ 'db' => 'admin' ]
+        ],
+        'sqlite' => [
+            'driver'   => 'sqlite',
+            'database' => storage_path('database.sqlite'),
+            'prefix'   => '',
         ],
 
-        /*
-        |--------------------------------------------------------------------------
-        | Migration Repository Table
-        |--------------------------------------------------------------------------
-        |
-        | This table keeps track of all the migrations that have already run for
-        | your application. Using this information, we can determine which of
-        | the migrations on disk haven't actually been run in the database.
-        |
-        */
-
-        'migrations' => 'migrations',
-
-        /*
-        |--------------------------------------------------------------------------
-        | Redis Databases
-        |--------------------------------------------------------------------------
-        |
-        | Redis is an open source, fast, and advanced key-value store that also
-        | provides a richer set of commands than a typical key-value systems
-        | such as APC or Memcached. Laravel makes it easy to dig right in.
-        |
-        */
-
-        'redis' => [
-
-            'cluster' => env('REDIS_CLUSTER', false),
-
-            'default' => [
-                'host'     => env('REDIS_HOST', '127.0.0.1'),
-                'port'     => env('REDIS_PORT', 6379),
-                'database' => 0,
-            ],
-
+        'mysql' => [
+            'driver'    => 'mysql',
+            'host'      => env('DB_HOST', 'localhost'),
+            'database'  => env('DB_DATABASE', 'forge'),
+            'username'  => env('DB_USERNAME', 'forge'),
+            'password'  => env('DB_PASSWORD', ''),
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
         ],
 
-    ];
+        'pgsql' => [
+            'driver'   => 'pgsql',
+            'host'     => env('DB_HOST', 'localhost'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset'  => 'utf8',
+            'prefix'   => '',
+            'schema'   => 'public',
+        ],
+
+        'sqlsrv' => [
+            'driver'   => 'sqlsrv',
+            'host'     => env('DB_HOST', 'localhost'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset'  => 'utf8',
+            'prefix'   => '',
+        ],
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Migration Repository Table
+    |--------------------------------------------------------------------------
+    |
+    | This table keeps track of all the migrations that have already run for
+    | your application. Using this information, we can determine which of
+    | the migrations on disk haven't actually been run in the database.
+    |
+    */
+
+    'migrations' => 'migrations',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Redis Databases
+    |--------------------------------------------------------------------------
+    |
+    | Redis is an open source, fast, and advanced key-value store that also
+    | provides a richer set of commands than a typical key-value systems
+    | such as APC or Memcached. Laravel makes it easy to dig right in.
+    |
+    */
+
+    'redis' => [
+
+        'cluster' => false,
+
+        'default' => [
+            'host'     => '127.0.0.1',
+            'port'     => 6379,
+            'database' => 0,
+        ],
+
+    ],
+
+];

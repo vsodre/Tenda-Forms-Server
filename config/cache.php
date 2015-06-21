@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('CACHE_DRIVER', 'memcached'),
+    'default' => env('CACHE_DRIVER', 'file'),
 
     /*
     |--------------------------------------------------------------------------
@@ -28,13 +28,17 @@ return [
 
     'stores' => [
 
+        'apc' => [
+            'driver' => 'apc',
+        ],
+
         'array' => [
-            'driver' => 'array'
+            'driver' => 'array',
         ],
 
         'database' => [
             'driver' => 'database',
-            'table'  => env('CACHE_DATABASE_TABLE', 'cache'),
+            'table'  => 'cache',
             'connection' => null,
         ],
 
@@ -47,7 +51,7 @@ return [
             'driver'  => 'memcached',
             'servers' => [
                 [
-                    'host' => env('MEMCACHED_HOST', '127.0.0.1'), 'port' => env('MEMCACHED_PORT', 11211), 'weight' => 100
+                    'host' => '127.0.0.1', 'port' => 11211, 'weight' => 100,
                 ],
             ],
         ],

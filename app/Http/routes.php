@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -12,21 +10,16 @@ use Illuminate\Http\Request;
 | and give it the controller to call when that URI is requested.
 |
 */
-
-$app->get('/admin', function() {
+Route::get('/admin', function(){
     return redirect('/admin/questionario.html');
 });
-$app->get('/', function() {
+Route::get('/', function(){
     return view('client');
 });
-
-$app->group(['prefix' => 'admin'], function($app){
-
-    $app->get('questionario.html', 'App\Http\Controllers\Questionario@getHtmlShow');
-    $app->get('questionario.json', 'App\Http\Controllers\Questionario@getJsonShow');
-
-    $app->post('questionario.save', 'App\Http\Controllers\Questionario@postJsonSave');
+Route::group(['prefix' => 'admin'], function(){
+    Route::get('questionario.html', ['as' => 'admin.questionario', 'uses'=>'Questionario@getHtmlShow']);
+    Route::get('questionario.json', 'Questionario@getJsonShow');
+    Route::post('questionario.save', 'Questionario@postJsonSave');
 });
-
-$app->post('/print-photo', 'App\Http\Controllers\Photo@postPrintPhoto');
-$app->post('/resposta', 'App\Http\Controllers\Questionario@postJsonResposta');
+Route::post('/print-photo', 'Photo@postPrintPhoto');
+Route::post('/resposta', 'Questionario@postJsonResposta');
