@@ -1,5 +1,7 @@
 <?php
 
+use App\Resposta;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -17,6 +19,10 @@ Route::get('/', function(){
     return view('client');
 });
 Route::group(['prefix' => 'admin'], function(){
+    Route::get('dados.html', ['as' => 'admin.dados', function(){
+        // Respost
+        return view('admin', ['page'=>'dados']);
+        }]);
     Route::get('questionario.html', ['as' => 'admin.questionario', 'uses'=>'Questionario@getHtmlShow']);
     Route::get('questionario.json', 'Questionario@getJsonShow');
     Route::post('questionario.save', 'Questionario@postJsonSave');

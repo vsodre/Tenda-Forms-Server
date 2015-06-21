@@ -6,8 +6,7 @@ $pages = [
     ],
     'dados' => [
         'title' => 'Importar Respostas',
-        // 'link' => route(''),
-        'link' => '#',
+        'link' => route('admin.dados'),
     ],
     'conf' => [
         'title' => 'Configurações',
@@ -48,11 +47,7 @@ $pages = [
         </ul>
     </header>
     <?php echo view($page) ?>
-    <footer>
-        &nbsp;
-    </footer>
-
-    <!--Import jQuery before materialize.js-->
+    <footer>&nbsp;</footer>
     <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/js/angular.js"></script>
     <script type="text/javascript" src="/js/angular-touch.js"></script>

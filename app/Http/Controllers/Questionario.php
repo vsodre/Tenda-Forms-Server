@@ -31,6 +31,7 @@ class Questionario extends Controller {
         foreach($r->all() as $k => $v){
             $resposta->{$k} = $v;
         }
+        $resposta->data = date("Y-m-d");
         $resposta->save();
         return response()->json(['printr' => $resposta]);
     }
