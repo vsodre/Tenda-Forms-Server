@@ -12,7 +12,7 @@ class Questionario extends Controller {
     }
 
     public function getHtmlShow(){
-        return view('questionario');
+        return view('admin', ['page' => 'questionario']);
     }
 
     public function postJsonSave(Request $r){
