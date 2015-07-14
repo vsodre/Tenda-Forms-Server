@@ -1,4 +1,4 @@
-(function(){
+(function() {
     var app = angular.module('client', ['ngTouch']);
 
     app.controller('PoolStage', ["$scope", "$http", "$timeout", "$window", function($scope, $http, $timeout, $window) {
@@ -35,12 +35,11 @@
             }, 3000);
         };
 
-        $scope.checkboxObserver = function(val, field){
-            if(val){
+        $scope.checkboxObserver = function(val, field) {
+            if (val) {
                 var boxes = [];
-                for(var k in val){
-                    console.log(k);
-                    if(val[k]) boxes.push(k);
+                for (var k in val) {
+                    if (val[k]) boxes.push(k);
                 }
                 $scope.form[field.nome] = boxes;
             }
@@ -74,9 +73,13 @@
             fd.append('photo', photo);
             $http.post('http://' + localhost + '/print-photo', fd, {
                 transformRequest: angular.identity,
-                headers: {'Content-Type': undefined}
+                headers: {
+                    'Content-Type': undefined
+                }
             });
-            $http.post('http://' + localhost + '/resposta', $scope.form, {'Content-Type': 'application/x-www-form-urlencoded'});
+            $http.post('http://' + localhost + '/resposta', $scope.form, {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            });
             $scope.form = {};
             $scope.count = 0;
             $scope.released = false;
@@ -100,11 +103,11 @@
             for (var i = 0; i < questionario.fields.length; i++) {
                 switch (questionario.fields[i].campo_t) {
                     case 'Radiobox':
-                    questionario.fields[i].template = '/tpl/radio.html#' + i;
-                    break;
+                        questionario.fields[i].template = '/tpl/radio.html#' + i;
+                        break;
                     case 'Checkbox':
-                    questionario.fields[i].template = '/tpl/check.html#' + i;
-                    break;
+                        questionario.fields[i].template = '/tpl/check.html#' + i;
+                        break;
                 }
             }
             questionario.fields.push(camera);

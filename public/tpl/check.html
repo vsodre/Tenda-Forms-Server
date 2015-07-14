@@ -4,7 +4,7 @@
     <div class="form-body">
         <form action="#">
             <p ng-repeat="r in campo.respostas">
-                <input class="filled-in" type="checkbox" ng-model="checkbox.observer[r]" ng-change="checkboxObserver(checkbox.observer, campo)" id="radio{{$index}}" name="{{r}}"/>
+                <input class="filled-in" type="checkbox" ng-model="checkbox.observer[r]" ng-change="checkboxObserver(checkbox.observer, campo)" id="radio{{$index}}" name="{{r}}" />
                 <label for="radio{{$index}}">{{r}}</label>
             </p>
         </form>

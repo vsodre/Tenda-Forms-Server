@@ -12,18 +12,17 @@ use App\Resposta;
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/admin', function(){
+Route::get('/admin', function () {
     return redirect('/admin/questionario.html');
 });
-Route::get('/', function(){
+Route::get('/', function () {
     return view('client');
 });
-Route::group(['prefix' => 'admin'], function(){
-    Route::get('dados.html', ['as' => 'admin.dados', function(){
-        // Respost
-        return view('admin', ['page'=>'dados']);
-        }]);
-    Route::get('questionario.html', ['as' => 'admin.questionario', 'uses'=>'Questionario@getHtmlShow']);
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('dados.html', ['as' => 'admin.dados', 'uses' => 'Respostas@getHtmlShow']);
+    Route::get('dados.json', 'Respostas@getAllDates');
+    Route::get('dados/{dates}', 'Respostas@getExcel')->where('dates', '(\d\d\d\d-\d\d-\d\d)(,\d\d\d\d-\d\d-\d\d)*');
+    Route::get('questionario.html', ['as' => 'admin.questionario', 'uses' => 'Questionario@getHtmlShow']);
     Route::get('questionario.json', 'Questionario@getJsonShow');
     Route::post('questionario.save', 'Questionario@postJsonSave');
 });

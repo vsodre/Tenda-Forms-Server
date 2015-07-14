@@ -1,38 +1,44 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Config;
 use App\Resposta;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class Questionario extends Controller {
-
-    public function getJsonShow(){
+class Questionario extends Controller
+{
+    public function getJsonShow()
+    {
         return response()->json(Config::find('Questionario'));
     }
 
-    public function getHtmlShow(){
+    public function getHtmlShow()
+    {
         return view('admin', ['page' => 'questionario']);
     }
 
-    public function postJsonSave(Request $r){
-        $c = Config::find("Questionario");
-        if(!$c){
-            $c = new Config;
-            $c->_id = "Questionario";
+    public function postJsonSave(Request $r)
+    {
+        $c = Config::find('Questionario');
+        if (!$c) {
+            $c = new Config();
+            $c->_id = 'Questionario';
         }
         $c->fields = $r->input('fields');
         $c->save();
+
         return response()->json($c);
     }
 
-    public function postJsonResposta(Request $r){
+    public function postJsonResposta(Request $r)
+    {
         $resposta = new Resposta();
-        foreach($r->all() as $k => $v){
+        foreach ($r->all() as $k => $v) {
             $resposta->{$k} = $v;
         }
-        $resposta->data = date("Y-m-d");
         $resposta->save();
-        return response()->json(['printr' => $resposta]);
+
+        return response()->json(['error' => 0]);
     }
 }
