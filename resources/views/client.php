@@ -18,6 +18,7 @@
   <script src="/js/angular-touch.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/angular-materialize.js"></script>
+  <script src="js/utils.js"></script>
   <script src="js/camera.js"></script>
   <script src="js/client.app.js"></script>
 </body>

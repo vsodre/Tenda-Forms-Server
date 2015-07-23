@@ -1,39 +1,6 @@
 (function (angular) {
-    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax", "ui.materialize.modal"]);
+    angular.module("ui.materialize", ["ui.materialize.ngModel", "ui.materialize.collapsible", "ui.materialize.toast", "ui.materialize.sidenav", "ui.materialize.material_select", "ui.materialize.dropdown", "ui.materialize.inputfield", "ui.materialize.input_date", "ui.materialize.tabs", "ui.materialize.pagination", "ui.materialize.pushpin", "ui.materialize.parallax","ui.materialize.modal", "ui.materialize.tooltipped"]);
 
-    angular.module("ui.materialize.modal", [])
-        .provider("$modal", function(){
-            var $modalProvider = {
-                $get:["$window", "$document", "$compile", "$rootScope", "$templateRequest",
-                        function(window, document, compile, root, tpl){
-                    var ModalObject = {};
-                    var body = document.find('body').eq(0);
-                    var modal = angular.element("<div></div>");
-                    ModalObject.open = function(template, options){
-                        var scope = root.$new();
-                        for(var key in options){
-                            scope[key] = options[key];
-                        }
-                        scope.parent = (options.parent?options.parent:{});
-                        tpl(template).then(function(result){
-                            scope.close = function(){
-                                window.$("#modal").closeModal();
-                            };
-                            modal.attr({
-                                'id':'modal',
-                                'class':'modal modal-fixed-footer'}).html(result);
-                            body.append(compile(modal)(scope));
-                            window.$("#modal").openModal({
-                                'complete':function(){
-                                    window.$("#modal").remove();
-                                }
-                                });
-                        });
-                    };
-                    return ModalObject;
-                }]};
-            return $modalProvider;
-            });
     angular.module("ui.materialize.ngModel", [])
         .directive("ngModel",["$timeout", function($timeout){
             return {
@@ -51,7 +18,7 @@
                         });
                     });
                 }
-            }
+            };
         }]);
 
     angular.module("ui.materialize.collapsible", [])
@@ -84,13 +51,14 @@
         .directive("toast", ["toastConfig", function (toastConfig) {
             return {
                 scope: {
-                    message: "@"
+                    message: "@",
+                    duration: "@"
                 },
                 link: function (scope, element, attrs) {
                     element.bind(attrs.toast, function () {
                         var message = (angular.isDefined(scope.message)) ? scope.message : "";
                         var rounded = (angular.isDefined(attrs.rounded)) ? toastConfig.rounded : null;
-                        Materialize.toast(message, toastConfig.duration, rounded);
+                        Materialize.toast(message, scope.duration ? scope.duration : toastConfig.duration, rounded);
                     });
                 }
             };
@@ -140,7 +108,7 @@
                         menuWidth: (angular.isDefined(scope.menuwidth)) ? scope.menuwidth : undefined,
                         edge: attrs.sidenav ? attrs.sidenav : "left",
                         closeOnClick: (angular.isDefined(scope.closeonclick)) ? scope.closeonclick == "true" : undefined
-                    })
+                    });
                 }
             };
         }]);
@@ -155,6 +123,11 @@
                         $timeout(function () {
                             element.material_select();
                         });
+                        if (attrs.ngModel) {
+                            scope.$watch(attrs.ngModel, function() {
+                                element.material_select();
+                            });
+                        }
                     }
                 }
             };
@@ -219,6 +192,13 @@
                 link: function (scope, element) {
                     $timeout(function () {
                         Materialize.updateTextFields();
+
+                        element.find('textarea, input').each(function (index, countable) {
+                            countable = angular.element(countable);
+                            if (!countable.siblings('span[class="character-counter"]').length) {
+                                countable.characterCounter();
+                            }
+                        });
                     });
                 },
                 template: '<div ng-transclude class="input-field"></div>'
@@ -282,7 +262,7 @@
                     }
 
                     // Passing date through Date applies Date.parse, if necessary
-                    date = date ? new Date(date) : new Date;
+                    date = date ? new Date(date) : new Date();
                     if (isNaN(date)) throw SyntaxError("invalid date");
 
                     mask = String(dF.masks[mask] || mask || dF.masks["default"]);
@@ -375,6 +355,7 @@
             return {
                 require: 'ngModel',
                 scope: {
+                    container: "@",
                     format: "@",
                     formatSubmit: "@",
                     monthsFull: "@",
@@ -384,6 +365,7 @@
                     today: "=",
                     clear: "=",
                     close: "=",
+                    selectYears: "=",
                     onStart: "&",
                     onRender: "&",
                     onOpen: "&",
@@ -409,6 +391,7 @@
                     $compile(element.contents())(scope);
                     $timeout(function () {
                         element.pickadate({
+                            container : (angular.isDefined(scope.container)) ? scope.container : 'body',
                             format: (angular.isDefined(scope.format)) ? scope.format : undefined,
                             formatSubmit: (angular.isDefined(scope.formatSubmit)) ? scope.formatSubmit : undefined,
                             monthsFull: (angular.isDefined(monthsFull)) ? monthsFull : undefined,
@@ -418,12 +401,13 @@
                             today: (angular.isDefined(scope.today)) ? scope.today : undefined,
                             clear: (angular.isDefined(scope.clear)) ? scope.clear : undefined,
                             close: (angular.isDefined(scope.close)) ? scope.close : undefined,
-                            onStart: (angular.isDefined(scope.onStart)) ? function(){ scope.onStart() } : undefined,
-                            onRender: (angular.isDefined(scope.onRender)) ? function(){ scope.onRender() } : undefined,
-                            onOpen: (angular.isDefined(scope.onOpen)) ? function(){ scope.onOpen() } : undefined,
-                            onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose() } : undefined,
-                            onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet() } : undefined,
-                            onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop() } : undefined
+                            selectYears: (angular.isDefined(scope.selectYears)) ? scope.selectYears : undefined,
+                            onStart: (angular.isDefined(scope.onStart)) ? function(){ scope.onStart(); } : undefined,
+                            onRender: (angular.isDefined(scope.onRender)) ? function(){ scope.onRender(); } : undefined,
+                            onOpen: (angular.isDefined(scope.onOpen)) ? function(){ scope.onOpen(); } : undefined,
+                            onClose: (angular.isDefined(scope.onClose)) ? function(){ scope.onClose(); } : undefined,
+                            onSet: (angular.isDefined(scope.onSet)) ? function(){ scope.onSet(); } : undefined,
+                            onStop: (angular.isDefined(scope.onStop)) ? function(){ scope.onStop(); } : undefined
                         });
                     });
                 }
@@ -436,7 +420,10 @@
         page="1"
         page-size="10"
         total="100"
-        pagination-action="changePage(page)">
+        pagination-action="changePage(page)"
+        ul-class="customClass">
+
+     * ul-class could be either an object or a string
      */
     angular.module("ui.materialize.pagination", [])
         .directive('pagination', function () {
@@ -448,7 +435,7 @@
                 scope.page = parseInt(scope.page) || 1;
                 scope.total = parseInt(scope.total) || 0;
                 scope.dots = scope.dots || '...';
-                scope.ulClass = 'pagination';
+                scope.ulClass = scope.ulClass || attrs.ulClass || 'pagination';
                 scope.adjacent = parseInt(scope.adjacent) || 2;
                 scope.activeClass = 'active';
                 scope.disabledClass = 'disabled';
@@ -512,7 +499,7 @@
 
                 // Calculate the previous page and if the click actions are allowed
                 // blocking and disabling where page <= 0
-                var disabled = scope.page - 1 <= 0
+                var disabled = scope.page - 1 <= 0;
                 var prevPage = scope.page - 1 <= 0 ? 1 : scope.page - 1;
 
                 var prev = {
@@ -661,14 +648,15 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    page: '@',
+                    page: '=',
                     pageSize: '@',
                     total: '@',
                     dots: '@',
                     hideIfEmpty: '@',
                     adjacent: '@',
                     scrollTop: '@',
-                    paginationAction: '&'
+                    paginationAction: '&',
+                    ulClass: '='
                 },
                 template:
                     '<ul ng-hide="Hide" ng-class="ulClass"> ' +
@@ -689,4 +677,69 @@
                 }
             };
         });
+
+    /*     example usage:
+     <!-- Modal Trigger -->
+     <a class='btn' href='#demoModal' modal>show Modal</a>
+
+     <!-- Modal Structure -->
+     <div id="demoModal" class="modal">
+     <div class="modal-content">
+     <h4>Modal Header</h4>
+
+     <p>A bunch of text</p>
+     </div>
+     <div class="modal-footer">
+     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+     </div>
+     </div>
+
+     */
+    angular.module("ui.materialize.modal", [])
+        .directive("modal", ["$compile", "$timeout", function ($compile, $timeout) {
+            return {
+                scope: {
+                    dismissible: "=",
+                    opacity: "@",
+                    inDuration: "@",
+                    outDuration: "@"
+                },
+                link: function (scope, element, attrs) {
+                    $compile(element.contents())(scope);
+                    $timeout(function () {
+                        element.leanModal({
+                            dismissible: (angular.isDefined(scope.dismissible)) ? scope.dismissible : undefined,
+                            opacity: (angular.isDefined(scope.opacity)) ? scope.opacity : undefined,
+                            in_duration: (angular.isDefined(scope.inDuration)) ? scope.inDuration : undefined,
+                            out_duration: (angular.isDefined(scope.outDuration)) ? scope.outDuration : undefined
+                        });
+                    });
+                }
+            };
+        }]);
+        
+        
+    /*     example usage:
+
+    <!-- data-position can be : bottom, top, left, or right -->
+    <!-- data-delay controls delay before tooltip shows (in milliseconds)-->
+    <a class="btn" tooltipped data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>
+
+     */
+    angular.module("ui.materialize.tooltipped", [])
+        .directive("tooltipped", ["$compile", "$timeout", function ($compile, $timeout) {
+            return {
+                restrict: "EA",
+                scope: true,
+                link: function (scope, element, attrs) {
+                    element.addClass("tooltipped");
+                    $compile(element.contents())(scope);
+                    $timeout(function () {
+                        $(".tooltipped").tooltip();
+                    });
+                }
+            };
+        }]);
+
+
 }(angular));

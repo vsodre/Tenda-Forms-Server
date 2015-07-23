@@ -1,0 +1,17 @@
+.secondary-content .file-field .btn{
+    position:relative;
+    top: -0.8em;
+}
+
+.editable{
+    margin-left: 3px;
+}
+
+.collection-item .editable input[type=text]{
+    width: 2em;
+    height: 1.2em;
+}
+
+.clearfix{
+    overflow: auto;
+}

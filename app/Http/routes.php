@@ -20,11 +20,17 @@ Route::get('/', function () {
 });
 Route::group(['prefix' => 'admin'], function () {
     Route::get('dados.html', ['as' => 'admin.dados', 'uses' => 'Respostas@getHtmlShow']);
-    Route::get('dados.json', 'Respostas@getAllDates');
-    Route::get('dados/{dates}', 'Respostas@getExcel')->where('dates', '(\d\d\d\d-\d\d-\d\d)(,\d\d\d\d-\d\d-\d\d)*');
     Route::get('questionario.html', ['as' => 'admin.questionario', 'uses' => 'Questionario@getHtmlShow']);
+    Route::get('configuracao.html', ['as' => 'admin.config', 'uses' => 'Configuration@getHtmlShow']);
+    Route::get('dados.json', 'Respostas@getAllDates');
     Route::get('questionario.json', 'Questionario@getJsonShow');
+    Route::get('camera-conf.json', 'Configuration@getJsonCameraConf');
     Route::post('questionario.save', 'Questionario@postJsonSave');
+    Route::post('camera-conf.save', 'Configuration@postJsonCameraConf');
+    Route::post('moldura.save', 'Configuration@postJsonMoldura');
+    Route::post('camera-conf.preview', 'Photo@postPreviewPhoto');
+    Route::get('dados/{dates}', 'Respostas@getExcel')->where('dates', '(\d\d\d\d-\d\d-\d\d)(,\d\d\d\d-\d\d-\d\d)*');
 });
 Route::post('/print-photo', 'Photo@postPrintPhoto');
+Route::get('/photo', 'Photo@postPrintPhoto');
 Route::post('/resposta', 'Questionario@postJsonResposta');

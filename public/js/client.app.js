@@ -110,7 +110,8 @@
                         break;
                 }
             }
-            questionario.fields.push(camera);
+            if (questionario.config && questionario.config.camera)
+                questionario.fields.push(camera);
             questionario.fields.push(end);
             questionario.fields.unshift(intro);
             updateScope();

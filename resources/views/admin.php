@@ -8,10 +8,10 @@ $pages = [
         'title' => 'Importar Respostas',
         'link' => route('admin.dados'),
     ],
-    'conf' => [
+    'config' => [
         'title' => 'Configurações',
-        // 'link' => route(''),
-        'link' => '#',
+        'link' => route('admin.config'),
+        // 'link' => '#',
     ],
 ];
 ?>
@@ -20,6 +20,7 @@ $pages = [
 <head>
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="/css/materialize.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="/css/admin.css" />
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -53,6 +54,7 @@ $pages = [
     <script type="text/javascript" src="/js/angular-touch.js"></script>
     <script type="text/javascript" src="/js/materialize.min.js"></script>
     <script type="text/javascript" src="/js/angular-materialize.js"></script>
+    <script type="text/javascript" src="/js/utils.js"></script>
     <script type="text/javascript" src="/js/admin.app.js"></script>
 </body>
 </html>

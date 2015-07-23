@@ -26,6 +26,7 @@ class Questionario extends Controller
             $c->_id = 'Questionario';
         }
         $c->fields = $r->input('fields');
+        $c->config = $r->input('config');
         $c->save();
 
         return response()->json($c);
