@@ -76,7 +76,7 @@
                         <a href="#visualizar" ng-click="c.setPreview()" modal>Visualizar</a>
                         <a href="#" ng-hide="same" ng-click="!saving && c.save()">Salvar</a>
                     </div>
-                    <div id="visualizar" class="modal">
+                    <div id="visualizar" class="modal big">
                         <div class="modal-content">
                             <img ng-src="{{preview}}"  class="responsive-img" />
                         </div>
@@ -107,7 +107,7 @@
                                     <div class="switch right">
                                         <label>
                                             Desligado
-                                            <input ng-model="t.form.disclaimer.active"  type="checkbox">
+                                            <input ng-model="t.form.disclaimer.active" ng-change="t.save()" type="checkbox">
                                             <span class="lever"></span>
                                             Ligado
                                         </label>
