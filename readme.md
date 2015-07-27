@@ -8,6 +8,6 @@ Tenda Form é um projeto iniciado pelo [Ciências Sob Tendas](http://cienciassob
 ## Contribuições
 
 
-### License
+### Licença
 
 [MIT license](http://opensource.org/licenses/MIT)
