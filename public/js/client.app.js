@@ -100,6 +100,10 @@
                 campo_t: 'end',
                 template: "tpl/end.html"
             };
+            var disclaimer = {
+                campo_t:'disclaimer',
+                template:'tpl/disclaimer.html'
+            };
             for (var i = 0; i < questionario.fields.length; i++) {
                 switch (questionario.fields[i].campo_t) {
                     case 'Radiobox':
@@ -112,7 +116,10 @@
             }
             if (questionario.config){
                 if(questionario.config.camera) questionario.fields.push(camera);
-                if(questionario.config.disclaimer && questionario.config.disclaimer.active) questionario.fields.unshift(questionario.config.disclaimer);
+                if(questionario.config.disclaimer && questionario.config.disclaimer.active){
+                    angular.merge(disclaimer, questionario.config.disclaimer);
+                    questionario.fields.unshift(disclaimer);
+                }
             }
             questionario.fields.push(end);
             questionario.fields.unshift(intro);
