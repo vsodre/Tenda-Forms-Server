@@ -11,8 +11,11 @@
 </head>
 <body ng-controller="Main as main" ng-cloack>
     <header>
-        <nav style="padding-left:260px;">
-            <div class="nav-wrapper"><a class="brand-logo center">{{page.label}}</a></div>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="300" data-closeonclick="true" class="button-collapse left"><i class="mdi-navigation-menu"></i></a>
+                <a class="brand-logo center">{{page.label}}</a>
+            </div>
             <ul id="nav-mobile" class="side-nav fixed">
                 <li class="logo">
                     <a id="logo-container" href="/tenda-form" class="brand-logo">
@@ -24,7 +27,7 @@
         </nav>
 
     </header>
-    <main style="padding-left:260px;" ng-view>
+    <main ng-view>
 
     </main>
     <script type="text/javascript" src="javascripts/jquery-2.1.1.min.js"></script>

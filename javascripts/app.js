@@ -3,7 +3,7 @@
 
     var pages = [
         {'label':'Sobre', 'href':'/sobre.html', 'active':false},
-        {'label':'Usando no seu Museu', 'href':'/no-seu-museu.html', 'active':false},
+        {'label':'No seu Museu', 'href':'/no-seu-museu.html', 'active':false},
         {'label':'Problemas Comuns', 'href':'/problemas.html', 'active':false},
         // {'label':'Contato', 'href':'/contato.html', 'active':false},
     ];
