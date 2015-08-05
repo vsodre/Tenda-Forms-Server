@@ -17,3 +17,9 @@ header, main, footer {
         padding-left: 0;
     }
 }
+
+code{
+    padding: 1em;
+    background: #ddd;
+    display: block;
+}
