@@ -32,7 +32,7 @@
         <p>{{q.fields[q._remove].pergunta}}</p>
     </div>
     <div class="modal-footer">
-        <a class="waves-effect modal-action modal-close btn" ng-click="q.remove()">Remover</a>
+        <a class="waves-effect modal-action btn" ng-click="q.remove()">Remover</a>
         <a class="waves-effect modal-action modal-close btn-flat">Fechar</a>
     </div>
 </div>
@@ -89,7 +89,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a class="waves-effect modal-action modal-close btn" ng-click="q.save()">Salvar</a>
+        <a class="waves-effect modal-action btn" ng-click="q.save()">Salvar</a>
         <a href="#!" class="waves-effect modal-action modal-close btn-flat" ng-click="(q.form = {})">Fechar</a>
     </div>
 </div>

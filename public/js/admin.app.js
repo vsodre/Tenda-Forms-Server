@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('admin', ['ui.materialize', 'ngTouch']);
+    var app = angular.module('admin', ['ui.materialize']);
     questoes = {
         fields: []
     };
@@ -23,7 +23,7 @@
         var ctrl = this;
         var q = {};
         ctrl.form = {};
-        ctrl.default = {
+        ctrl.conf = {
             camera: false,
             disclaimer: {
                 active: false,
@@ -37,19 +37,19 @@
             http.post('/admin/questionario.save', container, {
                     'Content-Type': 'application/x-form-urlencoded'
                 })
-                .success(function(data) {
-                    q = data;
+                .success(function(response) {
+                    q = response;
                     angular.copy(q.config, ctrl.form);
                     ctrl.form = q.config;
                 });
         };
         http.get('/admin/questionario.json')
-            .success(function(data) {
-                q = data;
+            .success(function(response) {
+                q = response;
                 if(q.config){
                     angular.copy(q.config, ctrl.form);
                 } else {
-                    angular.copy(ctrl.default, q.config);
+                    angular.copy(ctrl.conf, q.config);
                 }
             });
     }]);
@@ -58,7 +58,7 @@
         var ctrl = this;
         ctrl.form = {};
         ctrl.conf = {};
-        ctrl.default = {
+        ctrl.conf = {
             rfactor: 65,
             vpad: 240,
             hpad: 310,
@@ -104,8 +104,8 @@
             scope.saving = true;
             http.post('/admin/camera-conf.save', ctrl.form, {
                 'Content-Type': 'application/x-www-form-urlencoded'
-            }).success(function(data) {
-                ctrl.conf = data;
+            }).success(function(response) {
+                ctrl.conf = response.data;
                 scope.saving = false;
                 scope.same = true;
             }).error(function() {
@@ -123,13 +123,13 @@
                 scope.loading = false;
             }
         });
-        http.get('/admin/camera-conf.json').success(function(data) {
-            for (var k in data) {
+        http.get('/admin/camera-conf.json').success(function(response) {
+            for (var k in response.data) {
                 ctrl.form[k] = data[k];
                 ctrl.conf[k] = data[k];
             }
             if (angular.equals(ctrl.form, {})) {
-                ctrl.form = ctrl.default;
+                ctrl.form = ctrl.conf;
                 scope.same = false;
             }
         });
@@ -153,9 +153,9 @@
                 ctrl.link = '';
             }
         };
-        http.get('/admin/dados.json').success(function(data) {
-            ctrl.datas = data;
-            for (var k in data) {
+        http.get('/admin/dados.json').success(function(response) {
+            ctrl.datas = response;
+            for (var k in response) {
                 ctrl.form.datas[k] = false;
             }
         });
@@ -171,32 +171,37 @@
         ctrl.selected = -1;
         ctrl._remove = -1;
         ctrl.send = function() {
+        	console.log('send');
             http.post('/admin/questionario.save', ctrl.questionario, {
                     'Content-Type': 'application/x-form-urlencoded'
                 })
-                .success(function(data) {
-                    ctrl.questionario = data;
-                    angular.copy(data.fields, ctrl.fields);
+                .success(function(response) {
+                	console.log(response);
+                    ctrl.questionario = response;
+                    angular.copy(response.fields, ctrl.fields);
                     ctrl.form = {};
                 });
             return true;
         };
         ctrl.save = function() {
             if (!ctrl.form._id) {
-                ctrl.form._id = new Date();
+                ctrl.form._id = (new Date()).getTime();
                 ctrl.questionario.fields.push(ctrl.form);
-            }
+            } 
             ctrl.send();
+            $('#form').closeModal();
         };
         ctrl.edit = function(index) {
             ctrl.form = ctrl.questionario.fields[index];
         };
         ctrl.confirmRemove = function(index) {
+        	console.log('remove: ' + index);
             ctrl._remove = index;
         };
         ctrl.remove = function() {
             ctrl.questionario.fields.splice(ctrl._remove, 1);
             ctrl.send();
+            $('#confirm').closeModal();
             return true;
         };
         ctrl.addResponse = function() {
@@ -215,8 +220,8 @@
             ctrl.resposta = "";
         };
         http.get('/admin/questionario.json')
-            .success(function(data) {
-                ctrl.questionario = data;
+            .success(function(response) {
+                ctrl.questionario = response;
                 if (ctrl.questionario.fields) {
                     angular.copy(ctrl.questionario.fields, ctrl.fields);
                 } else {

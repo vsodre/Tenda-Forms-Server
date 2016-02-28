@@ -3,3 +3,7 @@
 .env
 .sass-cache
 /node_modules
+.buildpath
+.project
+.settings/
+.tern-project

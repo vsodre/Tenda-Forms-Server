@@ -5,7 +5,7 @@ $pages = [
         'link' => route('admin.questionario'),
     ],
     'dados' => [
-        'title' => 'Importar Respostas',
+        'title' => 'Exportar Respostas',
         'link' => route('admin.dados'),
     ],
     'config' => [
