@@ -31,11 +31,12 @@ class Configuration extends Controller
         if($r->hasFile('moldura')){
             list($h, $v) = getimagesize($_FILES['moldura']['tmp_name']);
             if($h !== 1052 || $v !== 744){
-                return response()->json(['ok'=>0]);
+                return response()->json(['ok'=>0, 'reason' => 'Arquivo fora das dimensões.']);
             }
             $r->file('moldura')->move(getcwd() . '/img', 'frame.png');
             return response()->json(['ok'=>1]);
+        } else {
+        	return response()->json(['ok'=>0, 'inputs' => $r->all(), 'reason' => 'Arquivo não detectado na requisição.']);
         }
-        return response()->json(['ok'=>0, 'inputs' => $r->all()]);
     }
 }

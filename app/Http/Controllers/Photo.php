@@ -15,7 +15,15 @@ class Photo extends Controller {
 
     public function postPrintPhoto(Request $req){
         $conf = Config::find('Camera');
-        if($req->hasFile('photo') && $conf){
+        if(!$conf){
+        	$conf = new Config();
+        	$conf->_id = 'Camera';
+        	$conf->hpad = 0;
+        	$conf->vpad = 0;
+        	$conf->rfactor = 0.5;
+        	$conf->save();
+        }
+        if($req->hasFile('photo')){
             $this->ib->paste(public_path('/img/frame.png'), 0, 0,1);
             $this->ib->paste($_FILES["photo"]["tmp_name"], $conf->hpad, $conf->vpad, $conf->rfactor/100);
             $img = '/tmp/' . uniqid() . '.png';

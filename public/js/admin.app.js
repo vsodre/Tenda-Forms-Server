@@ -57,7 +57,6 @@
     app.controller('Camera', ['$http', '$scope', '$window', function(http, scope, w) {
         var ctrl = this;
         ctrl.form = {};
-        ctrl.conf = {};
         ctrl.conf = {
             rfactor: 65,
             vpad: 240,
@@ -93,7 +92,7 @@
                 if (data.ok)
                     w.Materialize.toast('Arquivo aceito.', 4000);
                 else
-                    w.Materialize.toast('Arquivo rejeitado.', 4000);
+                    w.Materialize.toast('Rejeitado. ' + data.reason, 4000);
             }).error(function() {
                 scope.loading = false;
                 scope.moldura = undefined;
@@ -105,7 +104,7 @@
             http.post('/admin/camera-conf.save', ctrl.form, {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }).success(function(response) {
-                ctrl.conf = response.data;
+                ctrl.form = response;
                 scope.saving = false;
                 scope.same = true;
             }).error(function() {
@@ -124,12 +123,11 @@
             }
         });
         http.get('/admin/camera-conf.json').success(function(response) {
-            for (var k in response.data) {
-                ctrl.form[k] = data[k];
-                ctrl.conf[k] = data[k];
+            for (var k in response) {
+                ctrl.form[k] = response[k];
             }
             if (angular.equals(ctrl.form, {})) {
-                ctrl.form = ctrl.conf;
+                ctrl.form = angular.copy(ctrl.conf);
                 scope.same = false;
             }
         });
