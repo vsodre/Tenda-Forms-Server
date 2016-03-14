@@ -3,7 +3,7 @@
 
     app.controller('PoolStage', ["$scope", "$http", "$timeout", "$window", function($scope, $http, $timeout, $window) {
         var campo = 0;
-        var localhost = window.location.host;
+        var localhost = window.location.protocol + '//' + window.location.host;
         var questionario = {};
         var jQuery = $window.jQuery;
 
@@ -71,13 +71,13 @@
             var fd = new FormData();
             var photo = printPhoto();
             fd.append('photo', photo);
-            $http.post('http://' + localhost + '/print-photo', fd, {
+            $http.post(localhost + '/print-photo', fd, {
                 transformRequest: angular.identity,
                 headers: {
                     'Content-Type': undefined
                 }
             });
-            $http.post('http://' + localhost + '/resposta', $scope.form, {
+            $http.post(localhost + '/resposta', $scope.form, {
                 'Content-Type': 'application/x-www-form-urlencoded'
             });
             $scope.form = {};
@@ -86,7 +86,7 @@
             $scope.next();
         };
 
-        $http.get('http://' + localhost + '/admin/questionario.json').success(function(data) {
+        $http.get(localhost + '/admin/questionario.json').success(function(data) {
             questionario = data;
             var camera = {
                 campo_t: "Camera",
