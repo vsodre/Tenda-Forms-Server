@@ -101,8 +101,8 @@
                 template: "tpl/end.html"
             };
             var disclaimer = {
-                campo_t:'disclaimer',
-                template:'tpl/disclaimer.html'
+                campo_t: 'disclaimer',
+                template: 'tpl/disclaimer.html'
             };
             for (var i = 0; i < questionario.fields.length; i++) {
                 switch (questionario.fields[i].campo_t) {
@@ -112,11 +112,14 @@
                     case 'Checkbox':
                         questionario.fields[i].template = '/tpl/check.html#' + i;
                         break;
+                    case 'Satisfaction':
+                        questionario.fields[i].template = '/tpl/satisfaction.html#' + i;
+                        break;
                 }
             }
-            if (questionario.config){
-                if(questionario.config.camera) questionario.fields.push(camera);
-                if(questionario.config.disclaimer && questionario.config.disclaimer.active){
+            if (questionario.config) {
+                if (questionario.config.camera) questionario.fields.push(camera);
+                if (questionario.config.disclaimer && questionario.config.disclaimer.active) {
                     angular.merge(disclaimer, questionario.config.disclaimer);
                     questionario.fields.unshift(disclaimer);
                 }

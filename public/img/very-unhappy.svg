@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 64 64"
+   enable-background="new 0 0 64 64"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   width="100%"
+   height="100%"
+   sodipodi:docname="very-unhappy.svg">
+  <metadata
+     id="metadata28">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs26" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="744"
+     id="namedview24"
+     showgrid="false"
+     inkscape:zoom="3.6875"
+     inkscape:cx="32"
+     inkscape:cy="32"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <circle
+     fill="#ffdd67"
+     cx="32"
+     cy="32"
+     r="30"
+     id="circle4" />
+  <path
+     fill="#fff"
+     d="m16 49.5c0-6.461 5.314-14 16-14 10.689 0 16 7.539 16 14 0 0-5.311 0-16 0-10.686 0-16 0-16 0"
+     id="path12" />
+  <path
+     style="fill:#664e27"
+     inkscape:connector-curvature="0"
+     id="path16"
+     d="m 15.916,49.699 2,-8 h 28.16 l 2,8 z" />
+  <path
+     style="fill:#664e27"
+     inkscape:connector-curvature="0"
+     id="path18"
+     d="m 32,34.498 c 11.04,0 17,7.729 17,15 v 1 H 15 v -1 c 0,-7.271 5.957,-15 17,-15 m 14.957,14 c -0.523,-5.99 -5.729,-12 -14.957,-12 -9.228,0 -14.434,6.01 -14.957,12 h 29.914" />
+  <circle
+     style="fill:#664e27"
+     d="m 25,26 c 0,2.485281 -2.014719,4.5 -4.5,4.5 -2.485281,0 -4.5,-2.014719 -4.5,-4.5 0,-2.485281 2.014719,-4.5 4.5,-4.5 2.485281,0 4.5,2.014719 4.5,4.5 z"
+     sodipodi:ry="4.5"
+     sodipodi:rx="4.5"
+     sodipodi:cy="26"
+     sodipodi:cx="20.5"
+     id="circle20"
+     r="4.5"
+     cy="26"
+     cx="20.5"
+     transform="translate(0,-2)" />
+  <circle
+     style="fill:#664e27"
+     d="m 48,26 c 0,2.485281 -2.014719,4.5 -4.5,4.5 -2.485281,0 -4.5,-2.014719 -4.5,-4.5 0,-2.485281 2.014719,-4.5 4.5,-4.5 2.485281,0 4.5,2.014719 4.5,4.5 z"
+     sodipodi:ry="4.5"
+     sodipodi:rx="4.5"
+     sodipodi:cy="26"
+     sodipodi:cx="43.5"
+     id="circle22"
+     r="4.5"
+     cy="26"
+     cx="43.5"
+     transform="translate(0,-2)" />
+</svg>

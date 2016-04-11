@@ -1,0 +1,26 @@
+<div class="top-pad bottom-pad">
+    <a class="waves-effect waves-light btn right z-depth-1" ng-click="form[campo.nome] && next()" ng-class="{disabled:!form[campo.nome]}">Próximo</a>
+    <h2>{{campo.pergunta}}</h2>
+    <div class="form-body row">
+        <div class="input-field col s2 offset-s1">
+            <input type="radio" ng-model="form[campo.nome]" value="muito-insatisfeito" id="rad1" class="with-gap">
+            <label for="rad1"><img src="/img/very-unhappy.svg"  class="responsive-img" width="100%" alt=""></label>
+        </div>
+        <div class="input-field col s2">
+            <input type="radio" ng-model="form[campo.nome]" value="insatisfeito" id="rad2" class="with-gap">
+            <label for="rad2"><img src="/img/unhappy.svg" class="responsive-img" width="100%" alt=""></label>
+        </div>
+        <div class="input-field col s2">
+            <input type="radio" ng-model="form[campo.nome]" value="indiferente" id="rad3" class="with-gap">
+            <label for="rad3"><img src="/img/ok.svg" class="responsive-img" width="100%" alt=""></label>
+        </div>
+        <div class="input-field col s2">
+            <input type="radio" ng-model="form[campo.nome]" id="rad4" value="satisfeito" class="with-gap">
+            <label for="rad4"><img src="/img/happy.svg" class="responsive-img" width="100%" alt=""></label>
+        </div>
+        <div class="input-field col s2">
+            <input type="radio" ng-model="form[campo.nome]" id="rad5" value="muito-satisfeito" class="with-gap">
+            <label for="rad5"><img src="/img/very-happy.svg" class="responsive-img" width="100%" alt=""></label>
+        </div>
+    </div>
+</div>

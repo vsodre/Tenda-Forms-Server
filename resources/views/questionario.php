@@ -62,6 +62,7 @@
                                 <option value="" disabled selected></option>
                                 <option value="Checkbox">Multiplas respostas</option>
                                 <option value="Radiobox">Apenas uma resposta</option>
+                                <option value="Satisfaction">Satisfação</option>
                             </select>
                             <label for="campo_t">Tipo de Campo</label>
                         </div>
@@ -71,7 +72,7 @@
                 <div class="row">
                     <div class="col s10">
                         <div class="input-field">
-                            <input id="resposta" type="text" ng-model="q.resposta" class="validate">
+                            <input id="resposta" type="text" ng-disabled="q.form.campo_t == 'Satisfaction'" ng-model="q.resposta" class="validate">
                             <label for="resposta">Resposta</label>
                         </div>
                     </div>
