@@ -15,6 +15,7 @@ class Photo extends Controller {
 
     public function postPrintPhoto(Request $req){
         $conf = Config::find('Camera');
+        $q = Config::find('Questionario');
         if(!$conf){
         	$conf = new Config();
         	$conf->_id = 'Camera';
@@ -24,7 +25,7 @@ class Photo extends Controller {
         	$conf->save();
         }
         if($req->hasFile('photo')){
-            $this->ib->paste(public_path('/img/frame.png'), 0, 0,1);
+            $this->ib->paste($q->config['frame_path'], 0, 0,1);
             $this->ib->paste($_FILES["photo"]["tmp_name"], $conf->hpad, $conf->vpad, $conf->rfactor/100);
             $img = '/tmp/' . uniqid() . '.png';
             $this->ib->save($img);
@@ -36,7 +37,8 @@ class Photo extends Controller {
     }
 
     public function postPreviewPhoto(Request $req){
-        $this->ib->paste(public_path('/img/frame.png'), 0, 0,1);
+        $q = Config::find('Camera');
+        $this->ib->paste($q->frame_path, 0, 0,1);
         $this->ib->paste(public_path('/img/placeholder.png'), $req->input('hpad'), $req->input('vpad'), $req->input('rfactor')/100);
         $this->ib->output();
     }

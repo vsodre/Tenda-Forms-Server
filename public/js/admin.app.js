@@ -4,22 +4,39 @@
         fields: []
     };
 
-    app.directive('file', ['$http', function(http) {
+     var sendImage = function(url, data, http, success, failure) {
+        var form = new FormData();
+        form.append('image', data);
+        http.post(url, form, {
+            transformRequest: angular.identity,
+            headers: {
+                'Content-Type': undefined
+            }
+        }).success(function(data) {
+            success();
+            if (data.ok)
+                window.Materialize.toast('Arquivo aceito.', 4000);
+            else
+                window.Materialize.toast('Rejeitado. ' + data.reason, 4000);
+        }).error(function() {
+            failure();
+            window.Materialize.toast('Falha no servidor. Tente novamente.', 4000);
+        });
+    };
+
+    app.directive('file', function() {
         return {
             restrict: 'A',
-            scope: {
-                file: '='
-            },
             link: function(scope, el, attrs) {
                 el.bind('change', function(event) {
-                    scope.file = event.target.files[0];
+                    scope[attrs.file] = event.target.files[0];
                     scope.$apply();
                 });
             }
         };
-    }]);
+    });
 
-    app.controller('Telas', ['$http', function(http) {
+    app.controller('Telas', ['$http', '$scope', function(http, scope) {
         var ctrl = this;
         var q = {};
         ctrl.form = {};
@@ -43,6 +60,20 @@
                     ctrl.form = q.config;
                 });
         };
+        scope.$watch('abertura', function() {
+            if (scope.abertura) {
+                scope.loading = true;
+                sendImage('/admin/abertura.save', scope.abertura, http, function(){
+                    scope.loading = false;
+                    scope.abertura = undefined;
+                }, function(){
+                    scope.loading = false;
+                    scope.abertura = undefined;
+                });
+            } else {
+                scope.loading = false;
+            }
+        });
         http.get('/admin/questionario.json')
             .success(function(response) {
                 q = response;
@@ -50,6 +81,7 @@
                     angular.copy(q.config, ctrl.form);
                 } else {
                     angular.copy(ctrl.conf, q.config);
+                    angular.copy(q.config, ctrl.form);
                 }
             });
     }]);
@@ -57,17 +89,14 @@
     app.controller('Camera', ['$http', '$scope', '$window', function(http, scope, w) {
         var ctrl = this;
         ctrl.form = {};
-        ctrl.conf = {
-            rfactor: 65,
-            vpad: 240,
-            hpad: 310,
-            camera: false
-        };
+        ctrl.conf = {};
         scope.loading = false;
         scope.saving = false;
         scope.same = true;
         scope.preview = "";
         ctrl.setPreview = function() {
+            ctrl.form.vpad = Math.round(ctrl.form.vpadcm*37.79527559);
+            ctrl.form.hpad = Math.round(ctrl.form.hpadcm*37.79527559);
             http.post('/admin/camera-conf.preview', ctrl.form, {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'responseType': 'arraybuffer'
@@ -78,33 +107,15 @@
                 scope.preview = URL.createObjectURL(img);
             });
         };
-        ctrl.sendImage = function() {
-            var form = new FormData();
-            form.append('moldura', scope.moldura);
-            http.post('/admin/moldura.save', form, {
-                transformRequest: angular.identity,
-                headers: {
-                    'Content-Type': undefined
-                }
-            }).success(function(data) {
-                scope.loading = false;
-                scope.moldura = undefined;
-                if (data.ok)
-                    w.Materialize.toast('Arquivo aceito.', 4000);
-                else
-                    w.Materialize.toast('Rejeitado. ' + data.reason, 4000);
-            }).error(function() {
-                scope.loading = false;
-                scope.moldura = undefined;
-                w.Materialize.toast('Falha no servidor. Tente novamente.', 4000);
-            });
-        };
         ctrl.save = function() {
             scope.saving = true;
+            ctrl.form.vpad = Math.round(ctrl.form.vpadcm*37.79527559);
+            ctrl.form.hpad = Math.round(ctrl.form.hpadcm*37.79527559);
             http.post('/admin/camera-conf.save', ctrl.form, {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }).success(function(response) {
-                ctrl.form = response;
+                angular.copy(response, ctrl.form);
+                angular.copy(ctrl.form, ctrl.conf);
                 scope.saving = false;
                 scope.same = true;
             }).error(function() {
@@ -117,19 +128,27 @@
         scope.$watch('moldura', function() {
             if (scope.moldura) {
                 scope.loading = true;
-                ctrl.sendImage();
+                sendImage('/admin/moldura.save', scope.moldura, http, function(){
+                    scope.loading = false;
+                    scope.moldura = undefined;
+                    ctrl.form.frame_url = '/storage/frame.png';
+                }, function(){
+                    scope.loading = false;
+                    scope.moldura = undefined;
+                });
             } else {
                 scope.loading = false;
             }
         });
+
         http.get('/admin/camera-conf.json').success(function(response) {
-            for (var k in response) {
-                ctrl.form[k] = response[k];
-            }
-            if (angular.equals(ctrl.form, {})) {
-                ctrl.form = angular.copy(ctrl.conf);
-                scope.same = false;
-            }
+            angular.copy(response, ctrl.form);
+            ctrl.form.frame_url = (ctrl.form.frame_path.search('/storage/app/frame.png') > -1)?'/storage/frame.png':'/img/frame.png';
+            ctrl.form.vpadcm = (ctrl.form.vpad/37.79527559).toFixed(1);
+            ctrl.form.hpadcm = (ctrl.form.hpad/37.79527559).toFixed(1);
+            angular.copy(ctrl.form, ctrl.conf);
+            console.log(ctrl.form);
+            console.log(ctrl.conf);
         });
     }]);
 
@@ -169,7 +188,6 @@
         ctrl.selected = -1;
         ctrl._remove = -1;
         ctrl.send = function() {
-        	console.log('send');
             http.post('/admin/questionario.save', ctrl.questionario, {
                     'Content-Type': 'application/x-form-urlencoded'
                 })
@@ -185,7 +203,7 @@
             if (!ctrl.form._id) {
                 ctrl.form._id = (new Date()).getTime();
                 ctrl.questionario.fields.push(ctrl.form);
-            } 
+            }
             ctrl.send();
             $('#form').closeModal();
         };

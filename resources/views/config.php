@@ -23,29 +23,29 @@
                                 <div class="clearfix">
                                     <span class="left">Distância do topo:</span>
                                     <span class="left editable">
-                                        <input ng-model="c.form.vpad" class="center-align" ng-change="c.compare('vpad')" type="text" />
+                                        <input ng-model="c.form.vpadcm" class="center-align" ng-change="c.compare('vpadcm')" type="text" />
                                     </span>
-                                    <span class="left">px</span>
+                                    <span class="left">cm</span>
                                 </div>
                                 <p class="range-field">
-                                    <input type="range" ng-model="c.form.vpad" ng-change="c.compare('vpad')" id="vpad" min="0" max="500" />
+                                    <input type="range" ng-model="c.form.vpadcm" ng-change="c.compare('vpadcm')" id="vpad" min="0" max="15" step="0.1" />
                                 </p>
                             </li>
                             <li class="collection-item">
                                 <div class="clearfix">
                                     <span class="left">Distância da direita: </span>
                                     <span class="left editable">
-                                        <input ng-model="c.form.hpad" ng-change="c.compare('hpad')" type="text" />
+                                        <input ng-model="c.form.hpadcm" ng-change="c.compare('hpadcm')" type="text" />
                                     </span>
-                                    <span class="left">px</span>
+                                    <span class="left">cm</span>
                                 </div>
                                 <p class="range-field">
-                                    <input type="range" ng-model="c.form.hpad" ng-change="c.compare('hpad')" id="hpad" min="0" max="500" />
+                                    <input type="range" ng-model="c.form.hpadcm" ng-change="c.compare('hpadcm')" id="hpad" min="0" max="15" step="0.1" />
                                 </p>
                             </li>
                             <li class="collection-item">
                                 <p>
-                                    <a href="/img/frame.png" target="_blank">Moldura</a>
+                                    <a href="{{c.form.frame_url}}" target="_blank">Moldura</a>
                                 </p>
                                 <p>
                                     A imagem deve estar em formato PNG e obrigatóriamente com 1052px de largura por 744px de altura
@@ -118,10 +118,32 @@
                                         <textarea ng-model="t.form.disclaimer.text"></textarea>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="#!" class="modal-action modal-close waves-effect btn-flat" ng-click="t.save()">Salvar</a>
+                                        <a href="#!" class="modal-action waves-effect btn-flat" ng-click="t.save() && $('#disclaimer').closeModal">Salvar</a>
                                     </div>
                                 </div>
                             </li>
+                            <li class="collection-item">
+                                Imagem inicial
+                                <span class="secondary-content">
+                                    <div class="file-field input-field">
+                                        <div ng-hide="!loading" class="preloader-wrapper small active">
+                                            <div class="spinner-layer spinner-blue-only">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div><div class="gap-patch">
+                                                    <div class="circle"></div>
+                                                </div><div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btn" ng-class="{disabled:loading}">
+                                            <span>Alterar</span>
+                                            <input file="abertura" type="file" accept="image/png" />
+                                        </div>
+                                    </div>
+                                </span>
+                        </li>
                         </ul>
                     </div>
                 </div>

@@ -117,13 +117,12 @@
                         break;
                 }
             }
-            if (questionario.config) {
-                if (questionario.config.camera) questionario.fields.push(camera);
-                if (questionario.config.disclaimer && questionario.config.disclaimer.active) {
-                    angular.merge(disclaimer, questionario.config.disclaimer);
-                    questionario.fields.unshift(disclaimer);
-                }
+            intro.img_src = questionario.config.opening_url;
+            if (questionario.config.disclaimer.active) {
+                angular.merge(disclaimer, questionario.config.disclaimer);
+                questionario.fields.unshift(disclaimer);
             }
+            questionario.fields.push(camera);
             questionario.fields.push(end);
             questionario.fields.unshift(intro);
             updateScope();

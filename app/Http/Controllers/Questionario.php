@@ -21,14 +21,9 @@ class Questionario extends Controller
     public function postJsonSave(Request $r)
     {
         $c = Config::find('Questionario');
-        if (!$c) {
-            $c = new Config();
-            $c->_id = 'Questionario';
-        }
         $c->fields = $r->input('fields');
         $c->config = $r->input('config');
         $c->save();
-
         return response()->json($c);
     }
 

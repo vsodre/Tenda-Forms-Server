@@ -27,13 +27,29 @@ class Configuration extends Controller
     }
 
     public function postJsonMoldura(Request $r){
-        // if(true){
-        if($r->hasFile('moldura')){
-            list($h, $v) = getimagesize($_FILES['moldura']['tmp_name']);
+        if($r->hasFile('image')){
+            $c = Config::find("Camera");
+            list($h, $v) = getimagesize($_FILES['image']['tmp_name']);
             if($h !== 1052 || $v !== 744){
                 return response()->json(['ok'=>0, 'reason' => 'Arquivo fora das dimensões.']);
             }
-            $r->file('moldura')->move(getcwd() . '/img', 'frame.png');
+            $r->file('image')->move(storage_path('app'), 'frame.png');
+            $c->frame_path = storage_path('app/frame.png');
+            $c->save();
+            return response()->json(['ok'=>1]);
+        } else {
+        	return response()->json(['ok'=>0, 'inputs' => $r->all(), 'reason' => 'Arquivo não detectado na requisição.']);
+        }
+    }
+
+    public function postJsonAbertura(Request $r){
+        if($r->hasFile('image')){
+            $c = Config::find("Questionario");
+            $config = $c->config;
+            $r->file('image')->move(storage_path('app'), 'opening.png');
+            $config['opening_url'] = 'storage/opening.png';
+            $c->config = $config;
+            $c->save();
             return response()->json(['ok'=>1]);
         } else {
         	return response()->json(['ok'=>0, 'inputs' => $r->all(), 'reason' => 'Arquivo não detectado na requisição.']);
