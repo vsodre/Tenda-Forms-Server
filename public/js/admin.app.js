@@ -147,8 +147,6 @@
             ctrl.form.vpadcm = (ctrl.form.vpad/37.79527559).toFixed(1);
             ctrl.form.hpadcm = (ctrl.form.hpad/37.79527559).toFixed(1);
             angular.copy(ctrl.form, ctrl.conf);
-            console.log(ctrl.form);
-            console.log(ctrl.conf);
         });
     }]);
 
